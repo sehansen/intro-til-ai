@@ -1,9 +1,9 @@
 import Control.Applicative ((<*>), (<$>))
 import Data.List (intersect, union)
 import Data.List.Utils (addToAL)
-import Data.Maybe (maybe)
-
-data State = {frontier :: }
+import Data.Maybe (fromJust, maybe)
+import Data.Set (fromList)
+import Search
 
 type Coordinate = (Int, Int)
 type Street = (String, [Coordinate])
@@ -31,4 +31,6 @@ main = do
     stuff <- getContents
     table <- return . unify [] . map (parseStreet . words) . filter (not . null) $ lines stuff
     putStrLn . unlines $ map show table
+    --aStar (fromJust $ corner table "Noerregade" "Vestergade")
+    putStrLn . show $ aStar 1 (\x -> fromList [x+1, x*2]) ((abs .) . (-)) (abs . (7-)) (==7)
     putStrLn . show $ corner table "Noerregade" "Vestergade"
